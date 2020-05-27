@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.w3.org/1999/xhtml"
+>
+<!--head部分-->
+<head th:include="commons/layout :: htmlhead" th:with="title='后台管理系统'"></head>
+    <title>随笔文件</title>
+<style type="text/css">
+    .layui-layer-title {
+        text-align: center;
+        padding: 0;
+        margin: 0;
+    }
+
+    .layui-layer-content {
+        text-align: center;
+    }
+</style>
+<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+<!--[if lt IE 9]>
+<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <!--头-->
+    <div th:replace="commons/head :: header"></div>
+
+    <!--主体区域-->
+    <div class="layui-body">
+        <div class="layui-container">
+            <div class="layui-row">
+                <fieldset class="layui-elem-field site-demo-button">
+                    <legend>查询条件</legend>
+                        <div class="layui-row">
+                            <div class="layui-container">
+                                <div class="layui-row layui-col-md6">
+                                    <label class="layui-form-label">文件名称</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="filename" id="filename"
+                                               lay-verify="filename" autocomplete="off" class="layui-input"
+                                               value="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </fieldset>
+            </div>
+            <div class="layui-row">
+                <fieldset class="layui-elem-field site-demo-button">
+                    <div class="layui-layer-content">
+                        <button class="layui-btn layui-btn-normal" lay-submit="" id="fileQuery">查询</button>
+                        <button class="layui-btn layui-btn-normal" id="clearQuery">重置</button>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="layui-row">
+                <table id="demos" style="margin: 0 auto;" lay-filter="demos"></table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/js/error.js" th:src="@{/js/error.js}"></script>
+<script type="text/javascript" src="/js/file/file.js" th:src="@{/js/file/file.js}"></script>
+<!--表格的顶部-->
+<script type="text/html" id="toolbarDemos">
+    <div class="layui-btn-container">
+        <button  shiro:hasPermission="suibiadd" class="layui-btn layui-btn-sm" lay-event="getCheckData">新增</button>
+
+        <button  shiro:hasPermission="suibidaoru" class="layui-btn layui-btn-sm" lay-event="getDaoRuExcel">导入EXCEL</button>
+    </div>
+</script>
+<script type="text/html" id="barDemo">
+    <button class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</button>
+</script>
+</body>
+<div id="addmain" style="display: none;">
+        <div class="layui-form-item center">
+            <button type="button" class="layui-btn" id="test1"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+        </div>
+</div>
+<div id="excel" style="display: none;">
+        <div class="layui-form-item center">
+            <button type="button" class="layui-btn" id="test2"><i class="layui-icon">&#xe67c;</i>上传Excel</button>
+        </div>
+</div>
+</html>

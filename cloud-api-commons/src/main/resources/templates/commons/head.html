@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body class="layui-layout-body">
+<header th:fragment="header">
+    <script type="text/javascript">
+        Date.prototype.Format = function (fmt) { //author: meizz
+            var o = {
+                "M+": this.getMonth() + 1, //月份
+                "d+": this.getDate(), //日
+                "h+": this.getHours(), //小时
+                "m+": this.getMinutes(), //分
+                "s+": this.getSeconds(), //秒
+                "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                "S": this.getMilliseconds() //毫秒
+            };
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o)
+                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            return fmt;
+        }
+        setInterval( function(){
+            var time2 = new Date().Format("yyyy-MM-dd hh:mm:ss");
+            document.getElementById("time").innerText=time2;
+        }, 1000);
+    </script>
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo">客户信息管理中心</div>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    [[${session.username}]]
+                   <!-- <a href="javascript:;">
+                        <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                        [[${session.username}]]
+                    </a>-->
+                    <!--<dl class="layui-nav-child">
+                        <dd>基本资料</dd>
+                        <dd>安全设置</dd>
+                    </dl>-->
+                </li>
+                <li class="layui-nav-item" style="width: 10px"></li>
+                <li class="layui-nav-item" id="time"></li>
+                <li class="layui-nav-item"><a href="/sysadmin/off">退了</a></li>
+            </ul>
+        </div>
+
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/js/head.js" th:src="@{/js/head.js}" th:inline="javascript"></script>
+</header>
+</body>
+</html>
