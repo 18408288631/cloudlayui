@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--head部分-->
+<head th:include="commons/layout :: htmlhead" th:with="title='后台管理系统'"></head>
+<style type="text/css">
+    .layui-layer-title {
+        text-align: center;
+        padding: 0;
+        margin: 0;
+    }
+
+    .layui-layer-content {
+        text-align: center;
+    }
+</style>
+<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+<!--[if lt IE 9]>
+<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<!--echart-->
+<script type="text/javascript" src="/js/echart/echarts.min.js" th:src="@{/js/echart/echarts.min.js}"></script>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <!--头-->
+    <div th:replace="commons/head :: header"></div>
+
+    <!--主体区域-->
+    <div class="layui-body">
+        <div class="layui-container">
+            <div class="layui-row layui-bg-green layui-layer-title">
+                <h1>折线统计图</h1>
+            </div>
+            <div class="layui-row">
+                <div class="layui-col-md6">
+                    <div id="main" style="width: 500px;height:400px;"></div>
+                </div>
+                <div class="layui-col-md6">
+                    <div id="main1" style="width: 500px;height:400px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/js/error.js" th:src="@{/js/error.js}"></script>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+    var myChart1 = echarts.init(document.getElementById('main1'));
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: '漏斗图',
+            subtext: '纯属虚构'
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c}%"
+        },
+        toolbox: {
+            feature: {
+                dataView: {readOnly: false},
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        legend: {
+            data: ['展现','点击','访问','咨询','订单']
+        },
+
+        series: [
+            {
+                name:'漏斗图',
+                type:'funnel',
+                left: '10%',
+                top: 60,
+                //x2: 80,
+                bottom: 60,
+                width: '80%',
+                // height: {totalHeight} - y - y2,
+                min: 0,
+                max: 100,
+                minSize: '0%',
+                maxSize: '100%',
+                sort: 'descending',
+                gap: 2,
+                label: {
+                    show: true,
+                    position: 'inside'
+                },
+                labelLine: {
+                    length: 10,
+                    lineStyle: {
+                        width: 1,
+                        type: 'solid'
+                    }
+                },
+                itemStyle: {
+                    borderColor: '#fff',
+                    borderWidth: 1
+                },
+                emphasis: {
+                    label: {
+                        fontSize: 20
+                    }
+                },
+                data: [
+                    {value: 60, name: '访问'},
+                    {value: 40, name: '咨询'},
+                    {value: 20, name: '订单'},
+                    {value: 80, name: '点击'},
+                    {value: 100, name: '展现'}
+                ]
+            }
+        ]
+    };
+
+    var option1 = {
+        title: {
+            text: '漏斗图',
+            subtext: '纯属虚构'
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c}%"
+        },
+        toolbox: {
+            feature: {
+                dataView: {readOnly: false},
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        legend: {
+            data: ['展现','点击','访问','咨询','订单']
+        },
+        series: [
+            {
+                name: '预期',
+                type: 'funnel',
+                left: '10%',
+                width: '80%',
+                label: {
+                    formatter: '{b}预期'
+                },
+                labelLine: {
+                    show: false
+                },
+                itemStyle: {
+                    opacity: 0.7
+                },
+                emphasis: {
+                    label: {
+                        position: 'inside',
+                        formatter: '{b}预期: {c}%'
+                    }
+                },
+                data: [
+                    {value: 60, name: '访问'},
+                    {value: 40, name: '咨询'},
+                    {value: 20, name: '订单'},
+                    {value: 80, name: '点击'},
+                    {value: 100, name: '展现'}
+                ]
+            },
+            {
+                name: '实际',
+                type: 'funnel',
+                left: '10%',
+                width: '80%',
+                maxSize: '80%',
+                label: {
+                    position: 'inside',
+                    formatter: '{c}%',
+                    color: '#fff'
+                },
+                itemStyle: {
+                    opacity: 0.5,
+                    borderColor: '#fff',
+                    borderWidth: 2
+                },
+                emphasis: {
+                    label: {
+                        position: 'inside',
+                        formatter: '{b}实际: {c}%'
+                    }
+                },
+                data: [
+                    {value: 30, name: '访问'},
+                    {value: 10, name: '咨询'},
+                    {value: 5, name: '订单'},
+                    {value: 50, name: '点击'},
+                    {value: 80, name: '展现'}
+                ]
+            }
+        ]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+    myChart1.setOption(option1);
+</script>
+</body>
+</html>

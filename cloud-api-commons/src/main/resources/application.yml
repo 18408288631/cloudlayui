@@ -1,0 +1,37 @@
+#druid配置
+spring:
+  messages:
+    basename: i18n.login
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource    # 配置当前要使用的数据源的操作类型
+    driver-class-name: com.mysql.jdbc.Driver      # 配置MySQL的驱动程序类
+#    url: jdbc:mysql://127.0.0.1:3306/qx?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+#    url: jdbc:mysql://39.106.210.166:3306/qxxt?useUnicode=true&characterEncoding=utf-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url: jdbc:mysql://39.106.210.166:3306/qxxt?characterEncoding=UTF-8
+    username: root                                  # 数据库用户名
+    password: 159728                            # 数据库连接密码
+    dbcp2:                                          # 进行数据库连接池的配置
+      min-idle: 5                                   # 数据库连接池的最小维持连接数
+      initial-size: 5                               # 初始化提供的连接数
+      max-total: 5                                  # 最大的连接数
+      max-wait-millis: 200                          # 等待连接获取的最大超时时间
+  thymeleaf:
+    #模板的模式，支持 HTML, XML TEXT JAVASCRIPT
+    mode: HTML5
+    #编码 可不用配置
+    encoding: UTF-8
+    #开发配置为false,避免修改模板还要重启服务器
+    cache: false
+    #配置模板路径，默认是templates，可以不用配置
+    prefix: classpath:/templates/
+    suffix: .html
+  mvc:
+    date-format: yyyy-MM-dd
+mybatis:
+  config-location: classpath:mybatis.cfg.xml    # mybatis配置文件所在路径
+  type-aliases-package: com.example.demo.pojo            # 定义所有操作类的别名所在包
+  mapper-locations: mapper/*/*.xml
+logging:
+  level:
+    com.example.demo: debug
+  config: classpath:logback.xml

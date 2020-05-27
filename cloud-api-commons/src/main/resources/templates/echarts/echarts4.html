@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--head部分-->
+<head th:include="commons/layout :: htmlhead" th:with="title='后台管理系统'"></head>
+<style type="text/css">
+    .layui-layer-title {
+        text-align: center;
+        padding: 0;
+        margin: 0;
+    }
+
+    .layui-layer-content {
+        text-align: center;
+    }
+</style>
+<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+<!--[if lt IE 9]>
+<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<!--echart-->
+<script type="text/javascript" src="/js/echart/echarts.min.js" th:src="@{/js/echart/echarts.min.js}"></script>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <!--头-->
+    <div th:replace="commons/head :: header"></div>
+
+    <!--主体区域-->
+    <div class="layui-body">
+        <div class="layui-container">
+            <div class="layui-row layui-bg-green layui-layer-title">
+                <h1>饼图</h1>
+            </div>
+            <div class="layui-row">
+                <div class="layui-col-md6">
+                    <div id="main" style="width: 400px;height:300px;"></div>
+                </div>
+                <div class="layui-col-md6">
+                    <div id="main1" style="width: 600px;height:400px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/js/error.js" th:src="@{/js/error.js}"></script>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+    var myChart1 = echarts.init(document.getElementById('main1'));
+    // 指定图表的配置项和数据
+    var option = {
+        series : [
+            {
+                name: '访问来源',
+                type: 'pie',
+                radius: '55%',
+                data:[
+                    {value:235, name:'视频广告'},
+                    {value:274, name:'联盟广告'},
+                    {value:310, name:'邮件营销'},
+                    {value:335, name:'直接访问'},
+                    {value:400, name:'搜索引擎'}
+                ]
+            }
+        ]
+    };
+    var option1= {
+        tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b}: {c} ({d}%)'
+        },
+        legend: {
+            orient: 'vertical',
+            left: 10,
+            data: ['直达', '营销广告', '搜索引擎', '邮件营销', '联盟广告', '视频广告', '百度', '谷歌', '必应', '其他']
+        },
+        series: [
+            {
+                name: '访问来源',
+                type: 'pie',
+                selectedMode: 'single',
+                radius: [0, '30%'],
+
+                label: {
+                    position: 'inner'
+                },
+                labelLine: {
+                    show: false
+                },
+                data: [
+                    {value: 335, name: '直达', selected: true},
+                    {value: 679, name: '营销广告'},
+                    {value: 1548, name: '搜索引擎'}
+                ]
+            },
+            {
+                name: '访问来源',
+                type: 'pie',
+                radius: ['40%', '55%'],
+                label: {
+                    formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
+                    backgroundColor: '#eee',
+                    borderColor: '#aaa',
+                    borderWidth: 1,
+                    borderRadius: 4,
+                    // shadowBlur:3,
+                    // shadowOffsetX: 2,
+                    // shadowOffsetY: 2,
+                    // shadowColor: '#999',
+                    // padding: [0, 7],
+                    rich: {
+                        a: {
+                            color: '#999',
+                            lineHeight: 22,
+                            align: 'center'
+                        },
+                        // abg: {
+                        //     backgroundColor: '#333',
+                        //     width: '100%',
+                        //     align: 'right',
+                        //     height: 22,
+                        //     borderRadius: [4, 4, 0, 0]
+                        // },
+                        hr: {
+                            borderColor: '#aaa',
+                            width: '100%',
+                            borderWidth: 0.5,
+                            height: 0
+                        },
+                        b: {
+                            fontSize: 16,
+                            lineHeight: 33
+                        },
+                        per: {
+                            color: '#eee',
+                            backgroundColor: '#334455',
+                            padding: [2, 4],
+                            borderRadius: 2
+                        }
+                    }
+                },
+                data: [
+                    {value: 335, name: '直达'},
+                    {value: 310, name: '邮件营销'},
+                    {value: 234, name: '联盟广告'},
+                    {value: 135, name: '视频广告'},
+                    {value: 1048, name: '百度'},
+                    {value: 251, name: '谷歌'},
+                    {value: 147, name: '必应'},
+                    {value: 102, name: '其他'}
+                ]
+            }
+        ]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+    myChart1.setOption(option1);
+</script>
+</body>
+</html>

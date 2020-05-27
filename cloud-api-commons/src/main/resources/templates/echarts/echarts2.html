@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--head部分-->
+<head th:include="commons/layout :: htmlhead" th:with="title='后台管理系统'"></head>
+<style type="text/css">
+    .layui-layer-title {
+        text-align: center;
+        padding: 0;
+        margin: 0;
+    }
+
+    .layui-layer-content {
+        text-align: center;
+    }
+</style>
+<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+<!--[if lt IE 9]>
+<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<!--echart-->
+<script type="text/javascript" src="/js/echart/echarts.min.js" th:src="@{/js/echart/echarts.min.js}"></script>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <!--头-->
+    <div th:replace="commons/head :: header"></div>
+
+    <!--主体区域-->
+    <div class="layui-body">
+        <div class="layui-container">
+            <div class="layui-row layui-bg-green layui-layer-title">
+                <h1>折线统计图</h1>
+            </div>
+            <div class="layui-row">
+                <div class="layui-col-md6">
+                    <div id="main" style="width: 600px;height:400px;"></div>
+                </div>
+                <div class="layui-col-md6">
+                    <div id="main1" style="width: 600px;height:400px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/js/error.js" th:src="@{/js/error.js}"></script>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+    var myChart1 = echarts.init(document.getElementById('main1'));
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: 'EChart柱形图'
+        },
+        tooltip: {},
+        legend: {
+            data:['销量']
+        },
+        xAxis: {
+            data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+        },
+        yAxis: {},
+        series: [{
+            name: '销量',
+            type: 'bar',
+            data: [5, 20, 36, 10, 10, 20]
+        }]
+    };
+    var option1 = {
+        legend: {},
+        tooltip: {},
+        dataset: {
+            source: [
+                ['product', '2015', '2016', '2017'],
+                ['Matcha Latte', 43.3, 85.8, 93.7],
+                ['Milk Tea', 83.1, 73.4, 55.1],
+                ['Cheese Cocoa', 86.4, 65.2, 82.5],
+                ['Walnut Brownie', 72.4, 53.9, 39.1]
+            ]
+        },
+        xAxis: {type: 'category'},
+        yAxis: {},
+        // Declare several bar series, each will be mapped
+        // to a column of dataset.source by default.
+        series: [
+            {type: 'bar'},
+            {type: 'bar'},
+            {type: 'bar'}
+        ]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+    myChart1.setOption(option1);
+</script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<!--head部分-->
+<head th:include="commons/layout :: htmlhead" th:with="title='后台管理系统'"></head>
+<style type="text/css">
+    .layui-layer-title{
+        text-align: center;
+        padding: 0 ;
+        margin: 0;
+    }
+    .layui-layer-content{
+        text-align:center;
+    }
+</style>
+<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+<!--[if lt IE 9]>
+<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <!--头-->
+    <div th:replace="commons/head :: header"></div>
+
+    <!--主体区域-->
+    <div class="layui-body">
+        <div class="layui-container">
+            <div class="layui-row">
+                <fieldset class="layui-elem-field site-demo-button">
+                    <legend>查询条件</legend>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">会员名称</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="employeeName" id="employeeName"
+                                           lay-verify="employeeName" autocomplete="off" class="layui-input"
+                                           value="">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">身份证号码</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="identity" id="identity"
+                                           lay-verify="identity" autocomplete="off" class="layui-input"
+                                           value="">
+                                </div>
+                            </div>
+                        </div>
+                </fieldset>
+            </div>
+            <div class="layui-row">
+                <fieldset class="layui-elem-field site-demo-button">
+                    <div class="layui-layer-content">
+                        <button class="layui-btn layui-btn-normal" lay-submit="" id="vipQuery">查询</button>
+                        <button class="layui-btn layui-btn-normal" id="clearQuery">重置</button>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="layui-row">
+                <table id="demos" style="margin: 0 auto;" lay-filter="demos"></table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/js/error.js" th:src="@{/js/error.js}"></script>
+<script type="text/javascript" src="/js/memberlist/memberlist.js" th:src="@{/js/memberlist/memberlist.js}"></script>
+<!--表格的顶部-->
+<script type="text/html" id="toolbarDemos">
+    <div class="layui-btn-container">
+        <button shiro:hasPermission="memberlistadd" class="layui-btn layui-btn-sm" lay-event="getCheckData">新增</button>
+    </div>
+</script>
+<script type="text/html" id="barDemo">
+    <button shiro:hasPermission="memberlistquery" class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</button>
+    <button shiro:hasPermission="memberlistupdate" class="layui-btn layui-btn-xs" lay-event="edit">编辑</button>
+    <button shiro:hasPermission="memberlistdelete" class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</button>
+</script>
+</body>
+<div id="addmain" style="display: none;">
+    <form class="layui-form" id="add-form"  action="">
+        <div class="layui-form-item center" >
+            <label class="layui-form-label" style="width: 100px" >会员名称</label>
+            <div class="layui-input-block">
+                <input type="hidden" id="updateuuid" name="uuid" value=""/>
+                <input type="text" id="updateemployeeName" name="employeeName" required value="" style="width: 240px"  lay-verify="required" placeholder="请输入会员名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 100px">身份证号码</label>
+            <div class="layui-input-block">
+                <input type="text" id="updateidentity" name="identity" required  style="width: 240px" lay-verify="required" placeholder="请输入身份证号码" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="save" >立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary" id="closeBtn" >重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+</html>
