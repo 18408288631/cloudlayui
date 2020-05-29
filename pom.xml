@@ -11,6 +11,7 @@
         <module>cloud-api-commons</module>
         <module>cloud-api-provider-shiro</module>
         <module>cloud-api-provider-work</module>
+        <module>cloud-api-provider-file</module>
     </modules>
 
     <name>cloudlayui</name>

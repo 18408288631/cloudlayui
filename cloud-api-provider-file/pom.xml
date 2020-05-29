@@ -9,9 +9,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>cloud-api-provider-work</artifactId>
+    <artifactId>cloud-api-provider-file</artifactId>
 
-    <name>cloud-api-provider-work</name>
+    <name>cloud-api-provider-file</name>
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 
