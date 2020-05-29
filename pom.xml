@@ -9,7 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>cloud-api-commons</module>
-        <module>cloud-provider-cloudlayui8001</module>
+        <module>cloud-api-shiro</module>
     </modules>
 
     <name>cloudlayui</name>
