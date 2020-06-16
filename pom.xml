@@ -12,6 +12,14 @@
         <module>cloud-api-provider-shiro</module>
         <module>cloud-api-provider-work</module>
         <module>cloud-api-provider-file</module>
+        <module>cloud-client-file</module>
+        <module>cloud-client-shiro</module>
+        <module>cloud-client-work</module>
+        <module>cloud-api-provider-system</module>
+        <module>cloud-client-system</module>
+        <module>cloud-eureka-server7001</module>
+        <module>cloud-consumer-hystrix-dashboard9001</module>
+        <module>cloud-gateway-gateway95271</module>
     </modules>
 
     <name>cloudlayui</name>
